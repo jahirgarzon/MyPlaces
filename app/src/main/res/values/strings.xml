@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Places</string>
+    <string name="about_label">About</string>
+    <string name="accion_salir">Exit</string>
+    <string name="accion_mostrar">Show Places</string>
+    <string name="accion_preferencias">Preferences</string>
+    <string name="accion_acerca_de">About</string>
+    <string name="acerca_de">This program has been developed as an example in the Android course
+    to demonstrate how new activities can be launched from the main activity</string>
+</resources>
