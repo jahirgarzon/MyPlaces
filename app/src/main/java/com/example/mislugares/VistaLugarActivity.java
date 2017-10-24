@@ -5,25 +5,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.URI;
 import java.text.DateFormat;
 import java.util.Date;
-
-import static android.R.attr.data;
-import static com.example.mislugares.R.id.direccion;
-import static com.example.mislugares.R.id.telefono;
 
 public class VistaLugarActivity extends AppCompatActivity {
     private ImageView imageView;
@@ -173,9 +166,10 @@ public class VistaLugarActivity extends AppCompatActivity {
                                                 float valor, boolean fromUser) {
 
                         lugar.setValoracion(valor);
-                    }});
+                    }
+                });
 
-               ponerFoto(imageView, lugar.getFoto());
+        ponerFoto(imageView, lugar.getFoto());
 
     }
 
@@ -210,8 +204,7 @@ public class VistaLugarActivity extends AppCompatActivity {
     }
 
 
-
-     void ponerFoto(ImageView imageView, String uri) {
+    void ponerFoto(ImageView imageView, String uri) {
         if (uri != null && !uri.isEmpty() && !uri.equals("null")) {
             imageView.setImageURI(Uri.parse(uri));
         } else {

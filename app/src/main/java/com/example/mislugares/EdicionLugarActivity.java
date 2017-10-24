@@ -4,16 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.Spinner;
-import android.widget.TextView;
-
-import java.text.DateFormat;
-import java.util.Date;
 
 /**
  * Created by jay on 10/16/17.
@@ -72,20 +65,22 @@ public class EdicionLugarActivity extends AppCompatActivity {
         return true;
 
     }
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.menu_edicion_cancelar:
                 finish();
                 return true;
-            case R.id.menu_edicion_guardar :
+            case R.id.menu_edicion_guardar:
                 guardarCambios();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }}
+        }
+    }
 
-        public void guardarCambios(){
+    public void guardarCambios() {
 
         lugar.setNombre(nombre.getText().toString());
         lugar.setComentario(comentario.getText().toString());
@@ -93,7 +88,7 @@ public class EdicionLugarActivity extends AppCompatActivity {
         lugar.setTelefono(Integer.parseInt(telefono.getText().toString()));
         lugar.setTipo(TipoLugar.values()[tipo.getSelectedItemPosition()]);
         lugar.setUrl(url.getText().toString());
-        MainActivity.lugares.actualiza((int) id , lugar);
+        MainActivity.lugares.actualiza((int) id, lugar);
         finish();
     }
-    }
+}

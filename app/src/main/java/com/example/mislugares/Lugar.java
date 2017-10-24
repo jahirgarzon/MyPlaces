@@ -112,7 +112,7 @@ public class Lugar {
     public Lugar(String nombre, String direccion, double longitud,
                  double latitud, TipoLugar tipo, int telefono, String url, String comentario,
                  int valoracion) {
-        this.tipo=tipo;
+        this.tipo = tipo;
         fecha = System.currentTimeMillis();
         posicion = new GeoPunto(longitud, latitud);
 
@@ -123,6 +123,7 @@ public class Lugar {
         this.comentario = comentario;
         this.valoracion = valoracion;
     }
+
     public Lugar() {
         fecha = System.currentTimeMillis();
         posicion = new GeoPunto(0, 0);

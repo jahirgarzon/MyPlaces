@@ -24,9 +24,11 @@ public class AdaptadorLugares extends
     public void setOnItemClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
+
     // Lista de lugares a mostrar
     protected LayoutInflater inflador; // Crea Layouts a partir del XML
     protected Context contexto;
+
     // Lo necesitamos para el inflador
     public AdaptadorLugares(Context contexto, Lugares lugares) {
         this.contexto = contexto;
@@ -34,19 +36,22 @@ public class AdaptadorLugares extends
         inflador = (LayoutInflater) contexto
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
     //Creamos nuestro ViewHolder, con los tipos de elementos a modificar
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nombre, direccion;
         public ImageView foto;
         public RatingBar valoracion;
+
         public ViewHolder(View itemView) {
             super(itemView);
             nombre = (TextView) itemView.findViewById(R.id.nombre);
             direccion = (TextView) itemView.findViewById(R.id.direccion);
             foto = (ImageView) itemView.findViewById(R.id.foto);
-            valoracion=(RatingBar) itemView.findViewById(R.id.valoracion);
+            valoracion = (RatingBar) itemView.findViewById(R.id.valoracion);
         }
     }
+
     // Creamos el ViewHolder con la vista de un elemento sin personalizar
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,12 +60,14 @@ public class AdaptadorLugares extends
         v.setOnClickListener(onClickListener);
         return new ViewHolder(v);
     }
+
     // Usando como base el ViewHolder y lo personalizamos
     @Override
     public void onBindViewHolder(ViewHolder holder, int posicion) {
         Lugar lugar = lugares.elemento(posicion);
         personalizaVista(holder, lugar);
     }
+
     // Personalizamos un ViewHolder a partir de un lugar
     public void personalizaVista(ViewHolder holder, Lugar lugar) {
         holder.nombre.setText(lugar.getNombre());
@@ -102,10 +109,12 @@ public class AdaptadorLugares extends
         holder.foto.setScaleType(ImageView.ScaleType.FIT_END);
         holder.valoracion.setRating(lugar.getValoracion());
     }
- // Indicamos el número de elementos de la lista
-    @Override public int getItemCount() {
+
+    // Indicamos el número de elementos de la lista
+    @Override
+    public int getItemCount() {
         return lugares.tamanyo();
-        }
+    }
 
 
 }

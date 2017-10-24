@@ -9,29 +9,37 @@ import java.util.List;
 
 public class LugaresVector implements Lugares {
     protected List<Lugar> vectorLugares = ejemploLugares();
+
     public LugaresVector() {
         vectorLugares = ejemploLugares();
     }
+
     public Lugar elemento(int id) {
         return vectorLugares.get(id);
     }
+
     public void anyade(Lugar lugar) {
         vectorLugares.add(lugar);
     }
+
     public int nuevo() {
         Lugar lugar = new Lugar();
         vectorLugares.add(lugar);
-        return vectorLugares.size()-1;
+        return vectorLugares.size() - 1;
     }
+
     public void borrar(int id) {
         vectorLugares.remove(id);
     }
+
     public int tamanyo() {
         return vectorLugares.size();
     }
+
     public void actualiza(int id, Lugar lugar) {
         vectorLugares.set(id, lugar);
     }
+
     public static ArrayList<Lugar> ejemploLugares() {
         ArrayList<Lugar> lugares = new ArrayList<Lugar>();
         lugares.add(new Lugar("Escuela Politécnica Superior de Gandía",
@@ -57,4 +65,5 @@ public class LugaresVector implements Lugares {
                 38.9705949, TipoLugar.COMPRAS, 962881070,
                 "http://www.lavital.es/", "El típico centro comercial", 2));
         return lugares;
-    }}
+    }
+}

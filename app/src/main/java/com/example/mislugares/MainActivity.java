@@ -10,23 +10,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import static android.support.v7.recyclerview.R.attr.layoutManager;
 
 
 public class MainActivity extends AppCompatActivity {
-final static int RESULTADO_EDITA=1;
+    final static int RESULTADO_EDITA = 1;
 
     public static Lugares lugares = new LugaresVector();
-        private Button bAcercaDe;
-        private Button bSalir;
-        private Lugar lugar;
+    private Button bAcercaDe;
+    private Button bSalir;
+    private Lugar lugar;
     private RecyclerView recyclerView;
     public AdaptadorLugares adaptador;
     private RecyclerView.LayoutManager layoutManager;
@@ -45,7 +42,7 @@ final static int RESULTADO_EDITA=1;
             @Override
             public void onClick(View v) {
 
-                long id= (long) recyclerView.getChildAdapterPosition(v);
+                long id = (long) recyclerView.getChildAdapterPosition(v);
                 Intent i = new Intent(MainActivity.this,
                         VistaLugarActivity.class);
                 i.putExtra("id", id);
@@ -69,9 +66,11 @@ final static int RESULTADO_EDITA=1;
         });
 
     }
-    @Override protected void onActivityResult (int requestCode,
-                                               int resultCode, Intent data){
-        if (requestCode==RESULTADO_EDITA) {
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode, Intent data) {
+        if (requestCode == RESULTADO_EDITA) {
 
             findViewById(recyclerView.getId()).invalidate();
 
@@ -109,38 +108,33 @@ final static int RESULTADO_EDITA=1;
 
     }
 
-    public void lanzarAcercaDe(View view){
-        Intent i = new Intent(this,AcercaDeActivity.class);
+    public void lanzarAcercaDe(View view) {
+        Intent i = new Intent(this, AcercaDeActivity.class);
         startActivity(i);
     }
 
 
-
-
-
-
-        public void lanzarVistaLugar (View view){
-            final EditText entrada = new EditText(this);
-            entrada.setText("0");
-            new AlertDialog.Builder(this)
-                    .setTitle("Selección de lugar")
-                    .setMessage("indica su id:")
-                    .setView(entrada)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            long id = Long.parseLong(entrada.getText().toString());
-                            Intent i = new Intent(MainActivity.this,
-                                    VistaLugarActivity.class);
-                            i.putExtra("id", id);
-                            startActivity(i);
-                        }
-                    })
-                    .setNegativeButton("Cancelar", null)
-                    .show();
-
-
-        }
-
+    public void lanzarVistaLugar(View view) {
+        final EditText entrada = new EditText(this);
+        entrada.setText("0");
+        new AlertDialog.Builder(this)
+                .setTitle("Selección de lugar")
+                .setMessage("indica su id:")
+                .setView(entrada)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        long id = Long.parseLong(entrada.getText().toString());
+                        Intent i = new Intent(MainActivity.this,
+                                VistaLugarActivity.class);
+                        i.putExtra("id", id);
+                        startActivity(i);
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
 
 
     }
+
+
+}
