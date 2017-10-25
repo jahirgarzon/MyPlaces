@@ -116,6 +116,7 @@ public class Lugar {
         fecha = System.currentTimeMillis();
         posicion = new GeoPunto(longitud, latitud);
 
+
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;

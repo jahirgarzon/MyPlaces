@@ -18,7 +18,7 @@ import android.widget.EditText;
 
 
 public class MainActivity extends AppCompatActivity {
-    final static int RESULTADO_EDITA = 1;
+//    final static int RESULTADO_EDITA = 1;
 
     public static Lugares lugares = new LugaresVector();
     private Button bAcercaDe;
@@ -67,16 +67,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode, Intent data) {
-        if (requestCode == RESULTADO_EDITA) {
-
-            findViewById(recyclerView.getId()).invalidate();
-
-
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode,
+//                                    int resultCode, Intent data) {
+//        if (requestCode == RESULTADO_EDITA) {
+//
+//            findViewById(recyclerView.getId()).invalidate();
+//
+//
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

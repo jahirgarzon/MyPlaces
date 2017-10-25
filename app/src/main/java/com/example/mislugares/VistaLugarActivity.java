@@ -1,22 +1,36 @@
 package com.example.mislugares;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URI;
 import java.text.DateFormat;
 import java.util.Date;
+
+import static android.R.attr.data;
+import static com.example.mislugares.R.id.direccion;
+import static com.example.mislugares.R.id.telefono;
 
 public class VistaLugarActivity extends AppCompatActivity {
     private ImageView imageView;
@@ -25,6 +39,7 @@ public class VistaLugarActivity extends AppCompatActivity {
     final static int RESULTADO_FOTO = 3;
     private long id;
     private Lugar lugar;
+    private Uri uriFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,12 +122,20 @@ public class VistaLugarActivity extends AppCompatActivity {
                 lugar.setFoto(data.getDataString());
 
                 ponerFoto(imageView, lugar.getFoto());
+
             } else {
                 Toast.makeText(this, "Foto no cargada", Toast.LENGTH_LONG).show();
             }
         }
-    }
-
+     else if (requestCode == RESULTADO_FOTO) {
+        if (resultCode == Activity.RESULT_OK
+                && lugar !=null && uriFoto !=null) {
+            lugar.setFoto(uriFoto.toString());
+            ponerFoto(imageView, lugar.getFoto());
+        } else {
+            Toast.makeText(this, "Error en captura", Toast.LENGTH_LONG).show();
+        }
+    }}
     protected void actualizarVistas() {
         lugar = MainActivity.lugares.elemento((int) id);
         TextView nombre = (TextView) findViewById(R.id.nombre);
@@ -166,8 +189,7 @@ public class VistaLugarActivity extends AppCompatActivity {
                                                 float valor, boolean fromUser) {
 
                         lugar.setValoracion(valor);
-                    }
-                });
+                    }});
 
         ponerFoto(imageView, lugar.getFoto());
 
@@ -204,11 +226,64 @@ public class VistaLugarActivity extends AppCompatActivity {
     }
 
 
-    void ponerFoto(ImageView imageView, String uri) {
+
+     protected void ponerFoto(ImageView imageView, String uri) {
         if (uri != null && !uri.isEmpty() && !uri.equals("null")) {
-            imageView.setImageURI(Uri.parse(uri));
+            imageView.setImageBitmap(reduceBitmap(this, uri, 1024,
+                    1024));
         } else {
             imageView.setImageBitmap(null);
         }
     }
+
+    public void tomarFoto(View view) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        uriFoto = Uri.fromFile(new File(
+                Environment.getExternalStorageDirectory() + File.separator
+                        + "img_" + (System.currentTimeMillis() / 1000) + ".jpg"));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriFoto);
+        startActivityForResult(intent, RESULTADO_FOTO);
+    }
+    public void eliminarFoto(View view){
+        new AlertDialog.Builder(this)
+
+                .setMessage("De Veras?")
+                .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        lugar.setFoto(null);
+                        ponerFoto(imageView, null);
+
+
+                    }
+                })
+
+
+                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        return;
+                    }
+                })
+                .show();
+
+
+    }
+    public static Bitmap reduceBitmap(Context contexto, String uri,
+                                      int maxAncho, int maxAlto) {
+        try {
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(contexto.getContentResolver()
+                    .openInputStream(Uri.parse(uri)), null, options);
+            options.inSampleSize = (int) Math.max(
+                    Math.ceil(options.outWidth / maxAncho),
+                    Math.ceil(options.outHeight / maxAlto));
+            options.inJustDecodeBounds = false;
+            return BitmapFactory.decodeStream(contexto.getContentResolver()
+                    .openInputStream(Uri.parse(uri)), null, options);
+        } catch (FileNotFoundException e) {
+            Toast.makeText(contexto, "Fichero/recurso no encontrado",
+                    Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+            return null;
+        }}
 }
