@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="3dp"
-    >
-    <ImageView android:id="@+id/foto"
+    android:padding="3dp">
+
+    <ImageView
+        android:id="@+id/foto"
         android:layout_width="?android:attr/listPreferredItemHeight"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_alignParentLeft="true"
         android:contentDescription="fotografía"
-        android:src="@drawable/bar"/>
-    <TextView android:id="@+id/nombre"
+        android:src="@drawable/bar" />
+
+    <TextView
+        android:id="@+id/nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nombres del lugar"
@@ -20,6 +22,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
         android:maxLines="1" />
+
     <TextView
         android:id="@+id/direccion"
         android:layout_width="match_parent"
@@ -29,6 +32,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:text="dirección del lugar" />
+
     <RatingBar
         android:id="@+id/valoracion"
         android:layout_width="wrap_content"

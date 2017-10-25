@@ -20,18 +20,18 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="EstiloBoton" >
+    <style name="EstiloBoton">
 
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
 
     </style>
-    
+
     <style name="EstiloBoton.amortiguado">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:padding">30dp</item>
-        
-        
+
+
     </style>
 
 </resources>

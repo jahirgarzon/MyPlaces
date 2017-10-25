@@ -10,13 +10,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -24,13 +22,8 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URI;
 import java.text.DateFormat;
 import java.util.Date;
-
-import static android.R.attr.data;
-import static com.example.mislugares.R.id.direccion;
-import static com.example.mislugares.R.id.telefono;
 
 public class VistaLugarActivity extends AppCompatActivity {
     private ImageView imageView;
@@ -126,16 +119,17 @@ public class VistaLugarActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Foto no cargada", Toast.LENGTH_LONG).show();
             }
+        } else if (requestCode == RESULTADO_FOTO) {
+            if (resultCode == Activity.RESULT_OK
+                    && lugar != null && uriFoto != null) {
+                lugar.setFoto(uriFoto.toString());
+                ponerFoto(imageView, lugar.getFoto());
+            } else {
+                Toast.makeText(this, "Error en captura", Toast.LENGTH_LONG).show();
+            }
         }
-     else if (requestCode == RESULTADO_FOTO) {
-        if (resultCode == Activity.RESULT_OK
-                && lugar !=null && uriFoto !=null) {
-            lugar.setFoto(uriFoto.toString());
-            ponerFoto(imageView, lugar.getFoto());
-        } else {
-            Toast.makeText(this, "Error en captura", Toast.LENGTH_LONG).show();
-        }
-    }}
+    }
+
     protected void actualizarVistas() {
         lugar = MainActivity.lugares.elemento((int) id);
         TextView nombre = (TextView) findViewById(R.id.nombre);
@@ -189,7 +183,8 @@ public class VistaLugarActivity extends AppCompatActivity {
                                                 float valor, boolean fromUser) {
 
                         lugar.setValoracion(valor);
-                    }});
+                    }
+                });
 
         ponerFoto(imageView, lugar.getFoto());
 
@@ -226,8 +221,7 @@ public class VistaLugarActivity extends AppCompatActivity {
     }
 
 
-
-     protected void ponerFoto(ImageView imageView, String uri) {
+    protected void ponerFoto(ImageView imageView, String uri) {
         if (uri != null && !uri.isEmpty() && !uri.equals("null")) {
             imageView.setImageBitmap(reduceBitmap(this, uri, 1024,
                     1024));
@@ -244,7 +238,8 @@ public class VistaLugarActivity extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uriFoto);
         startActivityForResult(intent, RESULTADO_FOTO);
     }
-    public void eliminarFoto(View view){
+
+    public void eliminarFoto(View view) {
         new AlertDialog.Builder(this)
 
                 .setMessage("De Veras?")
@@ -267,6 +262,7 @@ public class VistaLugarActivity extends AppCompatActivity {
 
 
     }
+
     public static Bitmap reduceBitmap(Context contexto, String uri,
                                       int maxAncho, int maxAlto) {
         try {
@@ -285,5 +281,6 @@ public class VistaLugarActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             e.printStackTrace();
             return null;
-        }}
+        }
+    }
 }
